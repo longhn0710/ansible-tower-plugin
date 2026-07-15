@@ -305,7 +305,7 @@ When username/password authentication creates a temporary token, async mode rele
 
 ## Returned values
 
-Synchronous job results are returned as a `Properties`-like object containing:
+Synchronous job results are returned as a Pipeline Sandbox-safe `Map` containing:
 
 | Key | Availability | Description |
 | --- | --- | --- |

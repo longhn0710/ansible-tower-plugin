@@ -23,6 +23,7 @@ import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.verb.POST;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class AnsibleTowerStep extends AbstractStepImpl {
@@ -233,7 +234,7 @@ public class AnsibleTowerStep extends AbstractStepImpl {
     }
 
 
-    public static final class AnsibleTowerStepExecution extends AbstractSynchronousNonBlockingStepExecution<Properties> {
+    public static final class AnsibleTowerStepExecution extends AbstractSynchronousNonBlockingStepExecution<HashMap<Object, Object>> {
         private static final long serialVersionUID = 1L;
 
         @Inject
@@ -258,7 +259,7 @@ public class AnsibleTowerStep extends AbstractStepImpl {
         private transient Computer computer;
 
         @Override
-        protected Properties run() throws AbortException {
+        protected HashMap<Object, Object> run() throws AbortException {
             if ((computer == null) || (computer.getNode() == null)) {
                 throw new AbortException("The Ansible Tower build step requires to be launched on a node");
             }
@@ -307,7 +308,7 @@ public class AnsibleTowerStep extends AbstractStepImpl {
             if(!runResult && throwExceptionWhenFail) {
                 throw new AbortException("Ansible Tower build step failed");
             }
-            return map;
+            return PipelineResult.from(map);
         }
     }
 }
